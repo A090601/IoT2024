@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dokter;
+use App\Models\Managementdb;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class dokterController extends Controller
+class ManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $dokters = Dokter::all();
-        return view('pages.dokter.index', compact('dokters'));
-
+        $managements = Managementdb::all();
+        return view('pages.management.index', compact('managements'));
     }
 
     /**
@@ -23,7 +22,7 @@ class dokterController extends Controller
      */
     public function create()
     {
-        return view('pages.dokter.create');
+        return view('pages.management.create');
     }
 
     /**
@@ -32,36 +31,34 @@ class dokterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'no_izin' => 'required|string|unique:dokters,no_izin,',
+            'nip' => 'required|string|unique:management,nip,',
             'nama' => 'required|string',
             'jenis_kelamin' => 'required|string',
-            'npwp' => 'required|string|unique:dokters,npwp,',
+            'npwp' => 'required|string|unique:management,npwp,',
             'tempat_lahir' => 'required|string',
             'tanggal_lahir' => 'required|date',
-            'spesialisasi' => 'required|string',
-            'email' => 'required|string|unique:dokters,email,',
+            'jabatan' => 'required|string',
+            'email' => 'required|string|unique:management,email,',
             'no_hp' => 'required|string',
-            'alamat'=>'required|string',
+            'alamat' => 'required|string',
             'tanggal_masuk' => 'required|date',
-            'status'=> 'nullable|string',
+            'status' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $data = $request->all();
 
         if ($request->image) {
-
-            $data['image'] = $request->file('image')->store('asset/dokter', 'public');
+            $data['image'] = $request->file('image')->store('asset/management', 'public');
         }
-
-        Dokter::create($data);
+        Managementdb::create($data);
 
         if ($data) {
             toast('Data Berhasil Ditambah', 'success');
         } else {
             toast('Data Gagal Ditambahkan', 'error');
         }
-        return redirect()->route('dokter.index');
+        return redirect()->route('management.index');
     }
 
 
@@ -87,37 +84,37 @@ class dokterController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'no_izin' => 'required|string|unique:dokters,no_izin,'. $id,
+            'nip' => 'required|string|unique:management,nip,' . $id,
             'nama' => 'required|string',
             'jenis_kelamin' => 'required|string',
-            'npwp' => 'required|string|unique:dokters,npwp,'. $id,
+            'npwp' => 'required|string|unique:management,npwp,' . $id,
             'tempat_lahir' => 'required|string',
             'tanggal_lahir' => 'required|date',
-            'spesialisasi' => 'required|string',
-            'email' => 'required|string|unique:dokters,email,'. $id,
+            'jabatan' => 'required|string',
+            'email' => 'required|string|unique:management,email,' . $id,
             'no_hp' => 'required|string',
-            'alamat'=>'required|string',
+            'alamat' => 'required|string',
             'tanggal_masuk' => 'required|date',
-            'status'=> 'nullable|string',
+            'status' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
-        $dokter = Dokter::findOrFail($id);
+        $management = Managementdb::findOrFail($id);
         $data = $request->all();
 
         if ($request->image) {
-            Storage::delete('public/' . $dokter->image);
-            $data['image'] = $request->file('image')->store('asset/dokter', 'public');
+            Storage::delete('public/' . $management->image);
+            $data['image'] = $request->file('image')->store('asset/management', 'public');
         }
 
-        $dokter->update($data);
+        $management->update($data);
 
         if ($data) {
             toast('Data Berhasil Diupdate', 'success');
         } else {
             toast('Data Gagal Diupdate', 'error');
         }
-        return redirect()->route('dokter.index');
+        return redirect()->route('management.index');
     }
 
     /**
@@ -125,15 +122,14 @@ class dokterController extends Controller
      */
     public function destroy(string $id)
     {
-        $dokter = Dokter::findOrFail($id);
-        Storage::delete('public/' . $dokter->image);
-        $dokter->delete();
-        if ($dokter) {
+        $management = Managementdb::findOrFail($id);
+        Storage::delete('public/' . $management->image);
+        $management->delete();
+        if ($management) {
             toast('Data Berhasil Dihapus', 'success');
         } else {
             toast('Data Gagal Dihapus', 'error');
         }
-        return redirect()->route('dokter.index');
-
+        return redirect()->route('management.index');
     }
 }

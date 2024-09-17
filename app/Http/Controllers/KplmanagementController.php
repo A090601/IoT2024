@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pegawai;
+use App\Models\Kplmanagement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class pegawaiController extends Controller
+class KplmanagementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $pegawais = Pegawai::all();
-        return view('pages.pegawai.index', compact('pegawais'));
-
+        $kplmanagements = kplmanagement::all();
+        return view('pages.kplmanagement.index', compact('kplmanagements'));
     }
 
     /**
@@ -23,7 +22,7 @@ class pegawaiController extends Controller
      */
     public function create()
     {
-        return view('pages.pegawai.create');
+        return view('pages.kplmanagement.create');
     }
 
     /**
@@ -32,34 +31,36 @@ class pegawaiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nip' => 'required|string|unique:pegawais,nip,',
+            'no_izin' => 'required|string|unique:kplmanagement,no_izin,',
             'nama' => 'required|string',
             'jenis_kelamin' => 'required|string',
-            'npwp' => 'required|string|unique:pegawais,npwp,',
+            'npwp' => 'required|string|unique:dokters,npwp,',
             'tempat_lahir' => 'required|string',
             'tanggal_lahir' => 'required|date',
-            'jabatan' => 'required|string',
-            'email' => 'required|string|unique:pegawais,email,',
+            'spesialisasi' => 'required|string',
+            'email' => 'required|string|unique:dokters,email,',
             'no_hp' => 'required|string',
-            'alamat'=>'required|string',
+            'alamat' => 'required|string',
             'tanggal_masuk' => 'required|date',
-            'status'=> 'nullable|string',
+            'status' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $data = $request->all();
 
         if ($request->image) {
-            $data['image'] = $request->file('image')->store('asset/pegawai', 'public');
+
+            $data['image'] = $request->file('image')->store('asset/kplmanagement', 'public');
         }
-        Pegawai::create($data);
+
+        kplmanagement::create($data);
 
         if ($data) {
             toast('Data Berhasil Ditambah', 'success');
         } else {
             toast('Data Gagal Ditambahkan', 'error');
         }
-        return redirect()->route('pegawai.index');
+        return redirect()->route('dokter.index');
     }
 
 
@@ -85,37 +86,37 @@ class pegawaiController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nip' => 'required|string|unique:pegawais,nip,'. $id,
+            'no_izin' => 'required|string|unique:kplmanagements,no_izin,' . $id,
             'nama' => 'required|string',
             'jenis_kelamin' => 'required|string',
-            'npwp' => 'required|string|unique:pegawais,npwp,'. $id,
+            'npwp' => 'required|string|unique:kplmanagements,npwp,' . $id,
             'tempat_lahir' => 'required|string',
             'tanggal_lahir' => 'required|date',
-            'jabatan' => 'required|string',
-            'email' => 'required|string|unique:pegawais,email,'. $id,
+            'spesialisasi' => 'required|string',
+            'email' => 'required|string|unique:kplmanagements,email,' . $id,
             'no_hp' => 'required|string',
-            'alamat'=>'required|string',
+            'alamat' => 'required|string',
             'tanggal_masuk' => 'required|date',
-            'status'=> 'nullable|string',
+            'status' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
-        $pegawai = Pegawai::findOrFail($id);
+        $kplmanagement = kplmanagement::findOrFail($id);
         $data = $request->all();
 
         if ($request->image) {
-            Storage::delete('public/' . $pegawai->image);
-            $data['image'] = $request->file('image')->store('asset/pegawai', 'public');
+            Storage::delete('public/' . $kplmanagement->image);
+            $data['image'] = $request->file('image')->store('asset/kplmanagement', 'public');
         }
 
-        $pegawai->update($data);
+        $kplmanagement->update($data);
 
         if ($data) {
             toast('Data Berhasil Diupdate', 'success');
         } else {
             toast('Data Gagal Diupdate', 'error');
         }
-        return redirect()->route('pegawai.index');
+        return redirect()->route('kplmanagement.index');
     }
 
     /**
@@ -123,15 +124,14 @@ class pegawaiController extends Controller
      */
     public function destroy(string $id)
     {
-        $pegawai = Pegawai::findOrFail($id);
-        Storage::delete('public/' . $pegawai->image);
-        $pegawai->delete();
-        if ($pegawai) {
+        $kplmanagement = kplmanagement::findOrFail($id);
+        Storage::delete('public/' . $kplmanagement->image);
+        $kplmanagement->delete();
+        if ($kplmanagement) {
             toast('Data Berhasil Dihapus', 'success');
         } else {
             toast('Data Gagal Dihapus', 'error');
         }
-        return redirect()->route('pegawai.index');
-
+        return redirect()->route('kplmanagement.index');
     }
 }

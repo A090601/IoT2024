@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dokter extends Model
+class Kplmanagement extends Model
 {
     use HasFactory;
 
 
-    protected $lable = 'dokters';
+    protected $lable = 'kplmanagements';
     protected $fillable = ['no_izin', 'nama', 'jenis_kelamin', 'npwp', 'tempat_lahir', 'tanggal_lahir', 'spesialisasi', 'email', 'no_hp', 'alamat', 'tanggal_masuk', 'status', 'image'];
 
 

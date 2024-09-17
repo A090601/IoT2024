@@ -1,9 +1,9 @@
-@if(isset($pegawai))
-<div class="modal fade" id="modal-show{{ $pegawai->id }}">
+@if(isset($management))
+<div class="modal fade" id="modal-show{{ $management->id }}">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-primary text-center">
-                <h4 class="modal-title text-white">Biodata Pegawai</h4>
+                <h4 class="modal-title text-white">Biodata Management</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,13 +11,10 @@
             <div class="modal-body">
                 <div class="card mb-3">
                     <div class="card-body text-center">
-                        @if ($pegawai->image)
-                            <img src="{{ Storage::url($pegawai->image) }}" alt="gambar" width="220px"
-                                style="width: 220px; height: 220px; object-fit: cover; border-radius: 50%;" class="img-fluid">
+                        @if ($management->image)
+                        <img src="{{ Storage::url($management->image) }}" alt="gambar" width="220px" style="width: 220px; height: 220px; object-fit: cover; border-radius: 50%;" class="img-fluid">
                         @else
-                            <img alt="image" class="img-fluid thumbnail"
-                                src="{{ asset('assets/img/user_default.png') }}" width="120px"
-                                style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%;">
+                        <img alt="image" class="img-fluid thumbnail" src="{{ asset('assets/img/user_default.png') }}" width="120px" style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%;">
                         @endif
                     </div>
                 </div>
@@ -28,77 +25,78 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="nip"><strong>NIP:</strong></label>
-                                        <p id="nip">{{ $pegawai->nip }}</p>
+                                        <p id="nip">{{ $management->nip }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="nama"><strong>Nama:</strong></label>
-                                        <p id="nama">{{ $pegawai->nama }}</p>
+                                        <p id="nama">{{ $management->nama }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="email"><strong>Email:</strong></label>
-                                        <p id="email">{{ $pegawai->email }}</p>
+                                        <p id="email">{{ $management->email }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="no_hp"><strong>Nomor Handphone:</strong></label>
-                                        <p id="no_hp">{{ $pegawai->no_hp }}</p>
+                                        <p id="no_hp">{{ $management->no_hp }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="jenis_kelamin"><strong>Jenis Kelamin:</strong></label>
-                                        <p id="jenis_kelamin">{{ $pegawai->jenis_kelamin }}</p>
+                                        <p id="jenis_kelamin">{{ $management->jenis_kelamin }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="npwp"><strong>NPWP:</strong></label>
-                                        <p id="npwp">{{ $pegawai->npwp }}</p>
+                                        <p id="npwp">{{ $management->npwp }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="alamat"><strong>Alamat:</strong></label>
-                                        <p id="alamat">{{ $pegawai->alamat }}</p>
+                                        <p id="alamat">{{ $management->alamat }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="tempat_lahir"><strong>Tempat Lahir:</strong></label>
-                                        <p id="tempat_lahir">{{ $pegawai->tempat_lahir }}</p>
+                                        <p id="tempat_lahir">{{ $management->tempat_lahir }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="tanggal_lahir"><strong>Tanggal Lahir:</strong></label>
-                                        <p id="tanggal_lahir">{{ $pegawai->tanggal_lahir }}</p>
+                                        <p id="tanggal_lahir">{{ $management->tanggal_lahir }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="jabatan"><strong>Jabatan:</strong></label>
-                                        <p id="jabatan">{{ $pegawai->jabatan }}</p>
+                                        <p id="jabatan">{{ $management->jabatan }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="tanggal_masuk"><strong>Tanggal Masuk:</strong></label>
-                                        <p id="tanggal_masuk">{{ $pegawai->tanggal_masuk }}</p>
+                                        <p id="tanggal_masuk">{{ $management->tanggal_masuk }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="status"><strong>Status:</strong></label>
-                                        <p>@if ($pegawai->status == 'active')
-                                            <span class="badge bg-success text-white">{{$pegawai->status}}</span>
-                                        @else
-                                        <span class="badge bg-danger text-white">{{$pegawai->status}}</span>
-                                        @endif</p>
+                                        <p>@if ($management->status == 'active')
+                                            <span class="badge bg-success text-white">{{$management->status}}</span>
+                                            @else
+                                            <span class="badge bg-danger text-white">{{$management->status}}</span>
+                                            @endif
+                                        </p>
                                     </div>
                                 </div>
                             </div>

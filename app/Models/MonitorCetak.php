@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tindakanMedis extends Model
+class MonitorCetak extends Model
 {
     use HasFactory;
 
     protected $lable = 'tindakan_medis';
-    protected $fillable = ['pendaftaran_id','nama_penyakit','nama_tindakan','nama_obat','hasil_periksa'];
+    protected $fillable = ['pendaftaran_id', 'nama_penyakit', 'nama_tindakan', 'nama_obat', 'hasil_periksa'];
 
     public function Pendaftaran()
     {
@@ -19,7 +19,7 @@ class tindakanMedis extends Model
 
     public function Dokter()
     {
-        return $this->belongsTo(Dokter::class, 'pendaftaran_id', 'id');
+        return $this->belongsTo(Managementdb::class, 'pendaftaran_id', 'id');
     }
 
     public function Obat()

@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dokters', function (Blueprint $table) {
+        Schema::create('management', function (Blueprint $table) {
             $table->id();
-            $table->string('no_izin')->unique();
+            $table->string('nip')->unique();
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('no_hp');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->date('tanggal_masuk');
-            $table->string('spesialisasi');
+            $table->string('jabatan');
             $table->string('status')->default('active');
             $table->string('image')->nullable();
             $table->timestamps();
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dokters');
+        Schema::dropIfExists('management');
     }
 };

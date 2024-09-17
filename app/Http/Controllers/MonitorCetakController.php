@@ -3,34 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Obat;
-use App\Models\Dokter;
+use App\Models\Kplmanagement;
 use App\Models\stokObat;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
-use App\Models\tindakanMedis;
+use App\Models\MonitorCetak;
 
-class tindakanMedisController extends Controller
+class MonitorCetakController extends Controller
 {
 
     public function index()
     {
-        $pendaftarans = Pendaftaran::where('status_panggilan','sudah')->get();
-        $dokters = Dokter::all();
-        return view('pages.tindakan-medis.index', compact('pendaftarans', 'dokters'));
+        $pendaftarans = Pendaftaran::where('status_panggilan', 'sudah')->get();
+        $dokters = Kplmanagement::all();
+        return view('pages.MonitorCetak.index', compact('pendaftarans', 'dokters'));
     }
 
 
     public function show($id)
     {
         $pendaftaran = Pendaftaran::with('tindakanMedis')->findOrFail($id); // Mengambil data pendaftaran berdasarkan ID
-        $tindakan = tindakanMedis::with('Pendaftaran')->where('pendaftaran_id', $id)->get(); // Mengambil tindakan berdasarkan pendaftaran_id
-        $dokter = Dokter::all(); // Mengambil semua data dokter
+        $tindakan = MonitorCetak::with('Pendaftaran')->where('pendaftaran_id', $id)->get(); // Mengambil tindakan berdasarkan pendaftaran_id
+        $dokter = Kplmanagement::all(); // Mengambil semua data dokter
         // $prescriptions = Obat::where('pendaftaran_id', $id)->get(); // Asumsi ada Prescription model terkait
         // Ambil semua stok obat yang tersedia
         $stokObats = stokObat::all();
         $obats = Obat::with('stokObat')->where('pendaftaran_id', $id)->get();
 
-        return view('pages.tindakan-medis.show', compact('pendaftaran', 'tindakan', 'dokter','stokObats','obats')); // Mengirim data ke view
+        return view('pages.MonitorCetak.show', compact('pendaftaran', 'tindakan', 'dokter', 'stokObats', 'obats')); // Mengirim data ke view
     }
 
 
@@ -48,7 +48,7 @@ class tindakanMedisController extends Controller
 
         $data = $request->all();
 
-        tindakanMedis::create($data);
+        MonitorCetak::create($data);
 
         if ($data) {
             toast('Data Berhasil Ditambah', 'success');
@@ -56,7 +56,5 @@ class tindakanMedisController extends Controller
             toast('Data Gagal Ditambahkan', 'error');
         }
         return back();
-
     }
-
 }

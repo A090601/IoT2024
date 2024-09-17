@@ -3,16 +3,17 @@
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\adminController;
     use App\Http\Controllers\cetakController;
-    use App\Http\Controllers\dokterController;
-    use App\Http\Controllers\pegawaiController;
+    use App\Http\Controllers\KplmanagementController;
+    use App\Http\Controllers\managementController;
     use App\Http\Controllers\ProfileController;
     use App\Http\Controllers\dashboardController;
+    use App\Http\Controllers\MonitorCetakController;
     use App\Http\Controllers\obatController;
     use App\Http\Controllers\PendaftaranController;
     use App\Http\Controllers\supplierController;
     use App\Http\Controllers\tindakanMedisController;
     use App\Http\Controllers\stokObatController;
-
+    use App\Models\MonitorCetak;
 
     /*
     |--------------------------------------------------------------------------
@@ -40,20 +41,20 @@
 
 
 
-            Route::get('/', [dashboardController::class, 'index'])->name('dashboard');
-            Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-            Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-            Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/', [dashboardController::class, 'index'])->name('dashboard');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-            Route::middleware(['admin'])->group(function () {
+        Route::middleware(['admin'])->group(function () {
             // Crud Admin
             Route::resource('/admin', adminController::class);
             // Crud Pegawai
-            Route::resource('/pegawai', pegawaiController::class);
+            Route::resource('/management', ManagementController::class);
             // Crud Dokter
-            Route::resource('/dokter', dokterController::class);
+            Route::resource('/kplmanagement', KplmanagementController::class);
             // Crud Pendaftaran
-            Route::resource('/pendaftaran', PendaftaranController::class);
+            Route::resource('/Keloladevice', PendaftaranController::class);
             // Crud Supplier
             Route::resource('supplier', supplierController::class);
             // Panggillan
@@ -76,9 +77,9 @@
 
 
             //Tindakan Medis
-            Route::get('/tindakan-medis', [tindakanMedisController::class, 'index'])->name('tindakan.index');
-            Route::get('/tindakan-medis/{id}', [tindakanMedisController::class, 'show'])->name('tindakan.show');
-            Route::post('/tindakan-medis', [tindakanMedisController::class, 'store'])->name('tindakan.store');
+            Route::get('/MonitorCetak', [MonitorCetakController::class, 'index'])->name('MonitorCetak.index');
+            Route::get('/MonitorCetak/{id}', [MonitorCetakController::class, 'show'])->name('MonitorCetak.show');
+            Route::post('/MonitorCetak', [MonitorCetakController::class, 'store'])->name('MonitorCetak.store');
 
             //input resep obat
             Route::post('obat', [obatController::class, 'store'])->name('obat.store');
@@ -99,9 +100,9 @@
 
 
             //Tindakan Medis
-            Route::get('/tindakan-medis', [tindakanMedisController::class, 'index'])->name('tindakan.index');
-            Route::get('/tindakan-medis/{id}', [tindakanMedisController::class, 'show'])->name('tindakan.show');
-            Route::post('/tindakan-medis', [tindakanMedisController::class, 'store'])->name('tindakan.store');
+            Route::get('/MonitorCetak', [MonitorCetakController::class, 'index'])->name('MonitorCetak.index');
+            Route::get('/MonitorCetak/{id}', [MonitorCetakController::class, 'show'])->name('MonitorCetak.show');
+            Route::post('/MonitorCetak', [MonitorCetakController::class, 'store'])->name('MonitorCetak.store');
         });
 
 
@@ -120,10 +121,9 @@
             Route::get('/cetak-kartu-obat/{id}', [cetakController::class, 'kartuObat'])->name('cetak.kartu.obat');
 
             //Tindakan Medis
-            Route::get('/tindakan-medis', [tindakanMedisController::class, 'index'])->name('tindakan.index');
-            Route::get('/tindakan-medis/{id}', [tindakanMedisController::class, 'show'])->name('tindakan.show');
-            Route::post('/tindakan-medis', [tindakanMedisController::class, 'store'])->name('tindakan.store');
-
+            Route::get('/MonitorCetak', [MonitorCetakController::class, 'index'])->name('MonitorCetak.index');
+            Route::get('/MonitorCetak/{id}', [MonitorCetakController::class, 'show'])->name('MonitorCetak.show');
+            Route::post('/MonitorCetak', [MonitorCetakController::class, 'store'])->name('MonitorCetak.store');
             //input resep obat
             Route::post('obat', [obatController::class, 'store'])->name('obat.store');
             Route::get('pengadaan/obat', [obatController::class, 'index'])->name('obat.index');
@@ -132,7 +132,4 @@
             // Crud Stok Obat
             Route::resource('stok', stokObatController::class);
         });
-
-
-
     });

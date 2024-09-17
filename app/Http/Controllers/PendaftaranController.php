@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dokter;
+use App\Models\Kplmanagement;
 use App\Models\Antrian;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
@@ -14,9 +14,9 @@ class PendaftaranController extends Controller
      */
     public function index()
     {
-        $dokters = Dokter::all();
-        $pendaftarans = Pendaftaran::all();
-        return view('pages.pendaftaran.index', compact('pendaftarans', 'dokters'));
+        $dokters = Kplmanagement::all();
+        $Keloladevices = Pendaftaran::all();
+        return view('pages.Keloladevice.index', compact('Keloladevices', 'dokters'));
     }
 
     /**
@@ -24,8 +24,8 @@ class PendaftaranController extends Controller
      */
     public function create()
     {
-        $dokters = Dokter::all();
-        return view('pages.dokter.create', compact('dokters'));
+        $Kplmanagement = Kplmanagement::all();
+        return view('pages.Kplmanagement.create', compact('Kplmanagement'));
     }
 
     /**
@@ -155,7 +155,7 @@ class PendaftaranController extends Controller
     public function dataPasien()
     {
         $pendaftarans = Pendaftaran::all();
-        $dokters = Dokter::all();
+        $dokters = Kplmanagement::all();
         return view('pages.pendaftaran.data-pasien', compact('pendaftarans', 'dokters'));
     }
 }
